@@ -236,16 +236,7 @@ namespace LeetCodeSolutionsLibrary.Strings
             return str.ToString();
         }
 
-        private static void ReversePartion(StringBuilder str, int left, int right)
-        {
-            while (left < right)
-            {
-                //swap
-                (str[left], str[right]) = (str[right], str[left]);
-                left++;
-                right--;
-            }
-        }
+        
 
         private static (char, char) GetSumOfBinaryChar(char a, char b, char carry)
         {
@@ -274,6 +265,44 @@ namespace LeetCodeSolutionsLibrary.Strings
             }
 
             return (result, carry);
+        }
+
+        public static string ReverseWords2(string s)
+        {
+            StringBuilder str = new StringBuilder(s);
+
+            //loop through and reverse each word's letters
+            int len = str.Length;
+            int left = 0;
+            int right = 0;
+            while (right < len)
+            {
+                if (str[right] == (char)32 || right == len - 1)
+                {
+                    if (right == len - 1)
+                    {
+                        ReversePartion(str, left, right);
+                    }
+                    else
+                    {
+                        ReversePartion(str, left, right - 1);
+                        left = right + 1;
+                    }                    
+                }
+                right++;
+            }
+            return str.ToString();
+        }
+
+        private static void ReversePartion(StringBuilder str, int left, int right)
+        {
+            while (left < right)
+            {
+                //swap
+                (str[left], str[right]) = (str[right], str[left]);
+                left++;
+                right--;
+            }
         }
     }
 }

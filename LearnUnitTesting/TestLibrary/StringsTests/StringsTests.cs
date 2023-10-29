@@ -97,5 +97,22 @@
             // Assert
             Assert.Equal(expected, actual);
         }
+
+        [Theory]
+        [InlineData("a", "a")]
+        [InlineData("the", "eht")]
+        [InlineData("the man", "eht nam")]
+        [InlineData("the man on", "eht nam no")]
+        [InlineData("Let's take LeetCode contest", "s'teL ekat edoCteeL tsetnoc")]
+        [InlineData("God Ding", "doG gniD")]
+        public void ReverseWords2_ReversesTheLettersOfEachWord(string s, string expected)
+        {
+            // Arrange
+
+            // Act
+            string actual = Strings.ReverseWords2(s);
+            // Assert
+            Assert.Equal(expected, actual);
+        }
     }
 }
