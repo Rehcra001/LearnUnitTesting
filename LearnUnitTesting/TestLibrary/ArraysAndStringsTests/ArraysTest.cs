@@ -199,5 +199,24 @@ namespace TestLibrary.ArraysAndStringsTests
             // Assert
             Assert.Equal(expected, actual);
         }
+
+        [Theory]
+        [InlineData(new[] { 1, 1, 2 }, 2)]
+        [InlineData(new[] { 0, 0, 1, 1, 1, 2, 2, 3, 3, 4 }, 5)]
+        [InlineData(new[] { 1, 1, 1, 1 }, 1)]
+        [InlineData(new[] { 0 }, 1)]
+        [InlineData(new[] { 0, 0 }, 1)]
+        [InlineData(new[] { 0, 1 }, 2)]
+        [InlineData(new[] { 0, 0, 1, 1 }, 2)]
+        [InlineData(new[] { 0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 }, 2)]
+        public void RemoveDuplicates_ShouldReturnTheNumberOfUniqueIntegersInOrderUptoExpected(int[] nums, int expected)
+        {
+            // Arrange
+
+            // Act
+            int actual = Arrays.RemoveDuplicates(nums);
+            // Assert
+            Assert.Equal(expected, actual);
+        }
     }
 }
