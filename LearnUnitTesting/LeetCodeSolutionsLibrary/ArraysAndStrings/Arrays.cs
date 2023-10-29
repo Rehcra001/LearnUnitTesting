@@ -1,4 +1,7 @@
 ﻿using LeetCodeSolutionsLibrary.SortingAlgorithms;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Reflection;
 
 namespace LeetCodeSolutionsLibrary.ArraysAndStrings
 {
@@ -163,7 +166,7 @@ namespace LeetCodeSolutionsLibrary.ArraysAndStrings
         //Constraints:
         //1 <= nums.length <= 10^5
         //-2^31 <= nums[i] <= 2^31 - 1
-        //0 <= k <= 105
+        //0 <= k <= 10^5
         public static void Rotate(int[] nums, int k)
         {
             //check k
@@ -309,7 +312,115 @@ namespace LeetCodeSolutionsLibrary.ArraysAndStrings
         //Output: [1,3,12,0,0]
 
         //Constraints:
-        //1 <= nums.length <= 104
+        //1 <= nums.length <= 10^4
         //-2^31 <= nums[i] <= 2^31 - 1
+        public static int MoveZero(int[] nums)
+        {
+            //Check if array length is 1
+            if (nums.Length == 1)
+            {
+                if (nums[0] == 0)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return 1;
+                }
+            }
+            //Array length is at least 2
+            int len = nums.Length;
+            int left = -1;
+            int right = 0;
+            int lastNonZeroPosition = 0;
+
+            //Check first element
+            if (nums[0] == 0)
+            {
+                //Find the first non zero
+                FindNextNonZero(nums, ref left, ref right, ref lastNonZeroPosition); //right will have incremented                 
+            }
+            else
+            {
+                //loop until the first zero is found
+                FindNextZero(nums, ref left, ref right, ref lastNonZeroPosition);
+            }
+
+            if (left != -1)
+            {
+                FillZeroes(nums, left, lastNonZeroPosition);
+            }
+
+            return left + 1;
+        }
+
+        private static void FillZeroes(int[] nums, int left, int position)
+        {
+            for (int i = left + 1; i < position; i++)
+            {
+                nums[i] = 0;
+            }
+        }
+
+        private static void CopyFromRight(int[] nums, ref int left, ref int right, ref int position)
+        {
+            //increment left
+            left++;
+            while (right < nums.Length && nums[right] != 0)
+            {
+                nums[left] = nums[right];
+                //check if right is at end
+                if (right == nums.Length - 1)
+                {
+                    UpdateLastNonZeroPosition(ref position, right + 1);
+                    return;
+                }
+                else
+                {
+                    right++;
+                    left++;
+                }
+            }
+            //decrement one in case rest of array are zeroes
+            //Copy from right will increment if needed
+            UpdateLastNonZeroPosition(ref position, right);
+            left--;
+
+            FindNextNonZero(nums, ref left, ref right, ref position);
+        }
+
+        private static void FindNextZero(int[] nums, ref int left, ref int right, ref int position)
+        {
+            while (right < nums.Length && nums[right] != 0)
+            {
+                right++;
+            }
+            MoveLeftToRight(ref left, right);
+            FindNextNonZero(nums, ref left, ref right, ref position);
+        }
+
+        private static void FindNextNonZero(int[] nums, ref int left, ref int right, ref int position)
+        {
+            while (right < nums.Length && nums[right] == 0)
+            {
+                right++;
+            }
+            if (right == nums.Length)
+            {
+                return;
+            }
+
+            CopyFromRight(nums, ref left, ref right, ref position);
+        }
+
+        private static void MoveLeftToRight(ref int left, int right)
+        {
+            left = right - 1;
+        }
+
+        private static void UpdateLastNonZeroPosition(ref int position, int right)
+        {
+            position = right;
+        }
     }
 }

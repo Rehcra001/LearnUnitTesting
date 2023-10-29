@@ -208,7 +208,7 @@ namespace TestLibrary.ArraysAndStringsTests
         [InlineData(new[] { 0, 0 }, 1)]
         [InlineData(new[] { 0, 1 }, 2)]
         [InlineData(new[] { 0, 0, 1, 1 }, 2)]
-        [InlineData(new[] { 0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 }, 2)]
+        [InlineData(new[] { 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }, 2)]
         public void RemoveDuplicates_ShouldReturnTheNumberOfUniqueIntegersInOrderUptoExpected(int[] nums, int expected)
         {
             // Arrange
@@ -216,6 +216,29 @@ namespace TestLibrary.ArraysAndStringsTests
             // Act
             int actual = Arrays.RemoveDuplicates(nums);
             // Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Theory]
+        [InlineData(new[] { 0 }, 0)]
+        [InlineData(new[] { 1 }, 1)]
+        [InlineData(new[] { 0, 1 }, 1)]
+        [InlineData(new[] { 0, 1, 1 }, 2)]
+        [InlineData(new[] { 0, 1, 1, 0 }, 2)]
+        [InlineData(new[] { 0, 1, 0, 1, 0 }, 2)]
+        [InlineData(new[] { 1, 1, 1, 1 }, 4)]
+        [InlineData(new[] { 0, 0, 0, 0 }, 0)]
+        [InlineData(new[] { 1, 0, 1, 0 }, 2)]
+        [InlineData(new[] { 1, 0, 1, 0, 1 }, 3)]
+        [InlineData(new[] { 1, 1, 0, 0, 0, 0, 0, 0, 0 }, 2)]
+        [InlineData(new[] { 1, 0, 0, 1, 0, 0, 0, 0, 0 }, 2)]
+        public void MoveZero_ShouldMoveZeroesToTheBackAndReturnNumberOfNonZeroes(int[] nums, int expected)
+        {
+            // Arrange
+
+            // Act
+            int actual = Arrays.MoveZero(nums);
+            //Assert
             Assert.Equal(expected, actual);
         }
     }
