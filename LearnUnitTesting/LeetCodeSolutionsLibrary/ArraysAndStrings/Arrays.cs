@@ -1,19 +1,4 @@
 ﻿using LeetCodeSolutionsLibrary.SortingAlgorithms;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Runtime.Intrinsics.X86;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
-using System.Xml.Linq;
-using System.ComponentModel;
-using System.Numerics;
-using System.Threading.Channels;
-using System.Runtime.InteropServices;
-using System.Xml;
 
 namespace LeetCodeSolutionsLibrary.ArraysAndStrings
 {
@@ -41,8 +26,8 @@ namespace LeetCodeSolutionsLibrary.ArraysAndStrings
         //You may not use the same element twice.
         //Your solution must use only constant extra space.
         //Constraints:
-        //2 <= numbers.length <= 3 * 104
-        //-1000 <= numbers[i] <= 1000
+        //2 <= numbers.length <= 3 * 10^4
+        //-1000 <= numbers[i] <= 1000 
         //numbers is sorted in non-decreasing order.
         //-1000 <= target <= 1000
         //The tests are generated such that there is exactly one solution.
@@ -148,7 +133,7 @@ namespace LeetCodeSolutionsLibrary.ArraysAndStrings
         //of consecutive 1's in the array.
 
         //Constraints:
-        //1 <= nums.length <= 105
+        //1 <= nums.length <= 10^5
         //nums[i] is either 0 or 1.
 
         public static int FindMaxConsecutiveOnes(int[] nums)
@@ -176,8 +161,8 @@ namespace LeetCodeSolutionsLibrary.ArraysAndStrings
         //Given an integer array nums, rotate the array to the right by k steps, where k is non-negative.
 
         //Constraints:
-        //1 <= nums.length <= 105
-        //-231 <= nums[i] <= 231 - 1
+        //1 <= nums.length <= 10^5
+        //-2^31 <= nums[i] <= 2^31 - 1
         //0 <= k <= 105
         public static void Rotate(int[] nums, int k)
         {
@@ -296,7 +281,7 @@ namespace LeetCodeSolutionsLibrary.ArraysAndStrings
         //Return k.
 
         //Constraints:
-        //1 <= nums.length <= 3 * 104
+        //1 <= nums.length <= 3 * 10^4
         //-100 <= nums[i] <= 100
         //nums is sorted in non-decreasing order.
         public static int RemoveDuplicates(int[] nums)
@@ -314,5 +299,17 @@ namespace LeetCodeSolutionsLibrary.ArraysAndStrings
             }
             return length;
         }
+
+        //Given an integer array nums, move all 0's to the end of it while maintaining
+        //the relative order of the non-zero elements.
+        //Note that you must do this in-place without making a copy of the array.
+
+        //Example
+        //Input: nums = [0,1,0,3,12]
+        //Output: [1,3,12,0,0]
+
+        //Constraints:
+        //1 <= nums.length <= 104
+        //-2^31 <= nums[i] <= 2^31 - 1
     }
 }
