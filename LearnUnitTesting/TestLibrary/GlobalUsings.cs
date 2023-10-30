@@ -2,3 +2,4 @@ global using Xunit;
 global using LeetCodeSolutionsLibrary.ArraysAndStrings;
 global using LeetCodeSolutionsLibrary.Strings;
 global using LeetCodeSolutionsLibrary.SortingAlgorithms;
+global using LeetCodeSolutionsLibrary.LinkedLists;
