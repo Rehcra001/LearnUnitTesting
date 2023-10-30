@@ -241,5 +241,28 @@ namespace TestLibrary.ArraysAndStringsTests
             //Assert
             Assert.Equal(expected, actual);
         }
+
+        [Theory]
+        [InlineData(new[] { 0 }, 0)]
+        [InlineData(new[] { 1 }, 1)]
+        [InlineData(new[] { 0, 1 }, 1)]
+        [InlineData(new[] { 0, 1, 1 }, 2)]
+        [InlineData(new[] { 0, 1, 1, 0 }, 2)]
+        [InlineData(new[] { 0, 1, 0, 1, 0 }, 2)]
+        [InlineData(new[] { 1, 1, 1, 1 }, 4)]
+        [InlineData(new[] { 0, 0, 0, 0 }, 0)]
+        [InlineData(new[] { 1, 0, 1, 0 }, 2)]
+        [InlineData(new[] { 1, 0, 1, 0, 1 }, 3)]
+        [InlineData(new[] { 1, 1, 0, 0, 0, 0, 0, 0, 0 }, 2)]
+        [InlineData(new[] { 1, 0, 0, 1, 0, 0, 0, 0, 0 }, 2)]
+        public void MoveZero2_ShouldMoveZeroesToTheBackAndReturnNumberOfNonZeroes(int[] nums, int expected)
+        {
+            // Arrange
+
+            // Act
+            int actual = Arrays.MoveZero2(nums);
+            //Assert
+            Assert.Equal(expected, actual);
+        }
     }
 }

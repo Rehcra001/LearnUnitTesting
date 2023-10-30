@@ -422,5 +422,25 @@ namespace LeetCodeSolutionsLibrary.ArraysAndStrings
         {
             position = right;
         }
+
+        public static int MoveZero2(int[] nums)
+        {
+            int left = 0;
+            int len = nums.Length;
+
+            for (int i = 0; i < len; i++)
+            {
+                if (nums[i] != 0)
+                {
+                    nums[left] = nums[i];
+                    if (left < i)
+                    {
+                        nums[i] = 0;
+                    }
+                    left++;
+                }
+            }
+            return left;
+        }
     }
 }
