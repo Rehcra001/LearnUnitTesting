@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace LeetCodeSolutionsLibrary.LinkedLists
 {
     public class SinglyLinkedList
     {
-        public Node? Head { get; set; } = null;
+        public ListNode? Head { get; set; } = null;
         public int Count { get; private set; } = 0;
 
         public SinglyLinkedList()
@@ -25,7 +20,7 @@ namespace LeetCodeSolutionsLibrary.LinkedLists
                     return Head!.Value;
                 }
 
-                Node current = Head!;
+                ListNode current = Head!;
                 //Loop until found
                 for (int i = 1; i <= index; i++)
                 {
@@ -39,16 +34,39 @@ namespace LeetCodeSolutionsLibrary.LinkedLists
             }
         }
 
+        public ListNode? GetNode(int index)
+        {
+            if (Count > 0 && index < Count)
+            {
+                if (index == 0)
+                {
+                    return Head!;
+                }
+
+                ListNode current = Head!;
+                //Loop until found
+                for (int i = 1; i <= index; i++)
+                {
+                    current = current.Next!;
+                }
+                return current; ;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public void AddAtHead(int val)
         {
             if (Head is null)
             {
-                Head = new Node(val);
+                Head = new ListNode(val);
                 Count++;
             }
             else
             {
-                Head = new Node(val, Head);
+                Head = new ListNode(val, Head);
                 Count++;
             }
         }
@@ -61,12 +79,12 @@ namespace LeetCodeSolutionsLibrary.LinkedLists
             }
             else
             {
-                Node current = Head;
+                ListNode current = Head;
                 while (current.Next is not null)
                 {
                     current = current.Next;
                 }
-                current.Next = new Node(val);
+                current.Next = new ListNode(val);
                 Count++;
             }
             
@@ -85,12 +103,12 @@ namespace LeetCodeSolutionsLibrary.LinkedLists
             else if (index < Count)
             {
                 //search for node at index
-                Node current = Head!;
+                ListNode current = Head!;
                 for (int i = 1; i < index; i++)
                 {
                     current = current.Next!;
                 }
-                current.Next = new Node(val, current.Next!);
+                current.Next = new ListNode(val, current.Next!);
                 Count++;
             }
         }
@@ -115,7 +133,7 @@ namespace LeetCodeSolutionsLibrary.LinkedLists
                 }
                 else
                 {
-                    Node current = Head!;
+                    ListNode current = Head!;
                     for (int i = 1; i < index; i++)
                     {
                         current = current.Next!;
@@ -139,7 +157,7 @@ namespace LeetCodeSolutionsLibrary.LinkedLists
             
             if (Head is not null)
             {
-                Node current = Head;
+                ListNode current = Head;
 
                 for (int i = 0; i < Count; i++)
                 {

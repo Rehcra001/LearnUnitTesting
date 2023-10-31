@@ -6,21 +6,21 @@ using System.Threading.Tasks;
 
 namespace LeetCodeSolutionsLibrary.LinkedLists
 {
-    public class Node
+    public class ListNode
     {
         public int Value { get; set; }
-        public Node? Next { get; set; } = null;
+        public ListNode? Next { get; set; } = null;
 
-        public Node()
+        public ListNode()
         {            
         }
 
-        public Node(int val)
+        public ListNode(int val)
         {
             Value = val;
         }
 
-        public Node(int val, Node next)
+        public ListNode(int val, ListNode next)
         {
             Value = val;
             Next = next;

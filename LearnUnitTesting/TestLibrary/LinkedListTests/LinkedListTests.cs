@@ -1,4 +1,6 @@
-﻿namespace TestLibrary.LinkedListTests
+﻿using LeetCodeSolutionsLibrary.LinkedLists;
+
+namespace TestLibrary.LinkedListTests
 {
     public class LinkedListTests
     {
