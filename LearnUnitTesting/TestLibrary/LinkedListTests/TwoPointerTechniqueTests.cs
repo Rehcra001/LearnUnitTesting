@@ -20,7 +20,7 @@ namespace TestLibrary.LinkedListTests
             // Arrange
             ListNode? head = TwoPointerTechnique.CreateCycle(len, cycleIndex);
             // Act
-            bool actual = TwoPointerTechnique.HasCycle(head);
+            bool actual = TwoPointerTechnique.HasCycle(head!);
             // Assert
             Assert.Equal(expected, actual);
         }

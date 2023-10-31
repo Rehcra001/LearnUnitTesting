@@ -1,4 +1,6 @@
-﻿namespace LeetCodeSolutionsLibrary.LinkedLists
+﻿using System.Collections.Generic;
+
+namespace LeetCodeSolutionsLibrary.LinkedLists
 {
     public static class TwoPointerTechnique
     {
@@ -66,6 +68,111 @@
             }
 
             return linkedList.Head;
+        }
+
+        public static ListNode GetIntersectionNode(ListNode headA, ListNode headB)
+        {
+            // get the lengths of list A starting at headA and
+            // list B starting at headB
+            // each list will be at least one long
+            int countA = 1;
+            int countB = 1;
+            ListNode nodeA = headA;
+            ListNode nodeB = headB;
+
+            while (nodeA.Next is not null)
+            {
+                nodeA = nodeA.Next;
+                countA++;
+            }
+
+            while (nodeB.Next is not null)
+            {
+                nodeB = nodeB.Next;
+                countB++;
+            }
+
+            //reset
+            nodeA = headA;
+            nodeB = headB;
+            
+            // Check for longest
+            if (countA > countB)
+            {
+                //move until countA == countB
+                while (countA > countB)
+                {
+                    nodeA = nodeA.Next!;
+                    countA--;
+                }
+
+            }
+            else if (countB > countA)
+            {
+                //move until countA == countB
+                while (countB > countA)
+                {
+                    nodeB = nodeB.Next!;
+                    countB--;
+                }
+            }
+
+            //search for intersection
+            while (countA > 0)
+            {                
+                if (nodeA == nodeB)
+                {
+                    return nodeA;
+                }
+                else if (nodeA.Next == null || nodeB.Next == null)
+                {
+                    return null!;
+                }
+                nodeA = nodeA.Next;
+                nodeB = nodeB.Next;
+                countA--;
+            }
+
+            return null!;
+        }
+
+        public static (ListNode, ListNode) CreateIntersection(int lenA, int lenB, int lenRest = 0)
+        {
+            //Create two singly linked lists
+            Random random = new Random();
+
+            SinglyLinkedList listA = new SinglyLinkedList();
+            //Add node to the tail of linked list 
+            for (int i = 0; i < lenA; i++)
+            {
+                listA.AddAtTail(random.Next(0, 101));
+            }
+
+            SinglyLinkedList listB = new SinglyLinkedList();
+            //Add node to the tail of linked list 
+            for (int i = 0; i < lenB; i++)
+            {
+                listB.AddAtTail(random.Next(0, 101));
+            }
+
+            //If lenRest > 0 create a third linked list
+            SinglyLinkedList listRest = new SinglyLinkedList();
+            if (lenRest > 0)
+            {
+                for (int i = 0; i < lenRest; i++)
+                {
+                    listRest.AddAtTail(random.Next(0, 101));
+                }
+
+                //Join to the first two lists
+                ListNode a = listA.GetNode(listA.Count - 1)!;
+                a.Next = listRest.Head!;
+
+                ListNode b = listB.GetNode(listB.Count - 1)!;
+                b.Next = listRest.Head!;
+            }
+
+            return (listA.Head!, listB.Head!);
         }
     }
 }
