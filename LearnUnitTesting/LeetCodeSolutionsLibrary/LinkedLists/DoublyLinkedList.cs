@@ -110,7 +110,7 @@ namespace LeetCodeSolutionsLibrary.LinkedLists
         /// <param name="val"></param>
         public void AddAtIndex(int index, int val)
         {
-            
+
             if (index == 0)
             {
                 AddAtHead(val);
@@ -127,6 +127,7 @@ namespace LeetCodeSolutionsLibrary.LinkedLists
                     DoubleListNode newNode = new DoubleListNode(val, node.Previous, node);
                     node.Previous = newNode;
                     newNode.Previous.Next = newNode;
+                    node = null;
                     Count++;
                 }
             }
@@ -143,7 +144,7 @@ namespace LeetCodeSolutionsLibrary.LinkedLists
                 if (index == 0)
                 {
                     //Delete head
-                    DoubleListNode node = Head.Next;
+                    DoubleListNode node = Head!.Next;
                     Head.Next = null!;
                     Head = node;
                     Count--;
@@ -158,8 +159,8 @@ namespace LeetCodeSolutionsLibrary.LinkedLists
                 {
                     DoubleListNode node = GetNode(index)!;
                     node.Previous.Next = node.Next;
-                    node.Previous = null!;
-                    node.Next = null!;
+                    node.Next.Previous = node.Previous;
+                    node = null!;
                     Count--;
                 }
             }
