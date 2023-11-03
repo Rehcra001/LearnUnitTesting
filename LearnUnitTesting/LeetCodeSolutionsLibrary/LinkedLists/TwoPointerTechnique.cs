@@ -8,10 +8,10 @@ namespace LeetCodeSolutionsLibrary.LinkedLists
          * Definition for singly-linked list.
          * public class ListNode {
          *     public int val;
-         *     public ListNode next;
+         *     public ListNode Next;
          *     public ListNode(int x) {
          *         val = x;
-         *         next = null;
+         *         Next = null;
          *     }
          * }
          */
@@ -40,35 +40,36 @@ namespace LeetCodeSolutionsLibrary.LinkedLists
             }
             return false;
         }
-
-        public static ListNode? CreateCycle(int listLength, int cycleIndex = 0)
+        public static ListNode? DetectCycle(ListNode head)
         {
-            if (listLength == 0)
+            ListNode slow = head;
+            ListNode fast = head;
+
+            while (fast is not null && fast.Next is not null)
+            {
+                slow = slow.Next!;
+                fast = fast.Next.Next!;
+                if (fast == slow)
+                {
+                    break;
+                }
+            }
+
+            if (fast == null || fast.Next == null)
             {
                 return null;
             }
-
-            Random random = new Random();
-
-            SinglyLinkedList linkedList = new SinglyLinkedList();
-
-            //Add list to the tail of linked list 
-            for (int i = 0; i < listLength; i++)
+            else
             {
-                linkedList.AddAtTail(random.Next(0, 101));
+                slow = head;
+                while (fast != slow)
+                {
+                    slow = slow.Next!;
+                    fast = fast.Next!;
+                }
+                return slow;
             }
-
-            // set the last list nodes next property = a list node at cycleIndex
-            if (cycleIndex != -1)
-            {
-                //Create cycle
-                ListNode tail = linkedList.GetNode(linkedList.Count - 1)!;
-                ListNode cycleNode = linkedList.GetNode(cycleIndex)!;
-                tail!.Next = cycleNode;
-            }
-
-            return linkedList.Head;
-        }
+        }        
 
         public static ListNode GetIntersectionNode(ListNode headA, ListNode headB)
         {
@@ -134,6 +135,120 @@ namespace LeetCodeSolutionsLibrary.LinkedLists
             }
 
             return null!;
+        }
+
+        public static ListNode RemoveNthFromEnd(ListNode head, int n)
+        {
+            ListNode lead = head;
+            ListNode trail = head;
+
+            for (int i = 1; i < n; i++)
+            {
+                lead = lead.Next!;
+            }
+
+            if (lead.Next is null)
+            {
+                return head.Next!;
+            }
+            else
+            {
+                lead = lead.Next;
+            }
+
+            while (lead.Next is not null)
+            {
+                lead = lead.Next;
+                trail = trail.Next!;
+            }
+            trail.Next = trail.Next!.Next;
+            return head;
+        }
+        public static ListNode ReverseList(ListNode head)
+        {
+            //Iterative solution
+
+            ListNode? last = head;
+            ListNode current;
+            
+            while (last is not null && last.Next is not null)
+            {
+                current = last.Next;
+                last.Next = last.Next.Next;
+                if (current is not null)
+                {
+                    current.Next = head;
+                    head = current;
+                }                
+            }
+            return head;
+        }
+        public static ListNode ReverseList2(ListNode head)
+        {
+            //Recursive solution
+            //Base case
+            if (head is null)
+            {
+                return head;
+            }
+            
+            return head;
+        }
+
+        public static ListNode RemoveElements(ListNode head, int val)
+        {
+
+            while (head is not null && head.Value == val)
+            {
+                head = head.Next;
+            }
+
+            if (head is not null)
+            {
+                ListNode current = head;
+                while (current.Next is not null)
+                {
+                    if (current.Next.Value == val)
+                    {
+                        current.Next = current.Next.Next;
+                    }
+                    else
+                    {
+                        current = current.Next;
+                    }
+                }
+
+            }
+
+            return head;
+        }
+        public static ListNode? CreateCycle(int listLength, int cycleIndex = 0)//cycleIndex = -1 has no cycle
+        {
+            if (listLength == 0)
+            {
+                return null;
+            }
+
+            Random random = new Random();
+
+            SinglyLinkedList linkedList = new SinglyLinkedList();
+
+            //Add list to the tail of linked list 
+            for (int i = 0; i < listLength; i++)
+            {
+                linkedList.AddAtTail(random.Next(0, 101));
+            }
+
+            // set the last list nodes Next property = a list node at cycleIndex
+            if (cycleIndex != -1)
+            {
+                //Create cycle
+                ListNode tail = linkedList.GetNode(linkedList.Count - 1)!;
+                ListNode cycleNode = linkedList.GetNode(cycleIndex)!;
+                tail!.Next = cycleNode;
+            }
+
+            return linkedList.Head;
         }
 
         public static (ListNode, ListNode) CreateIntersection(int lenA, int lenB, int lenRest = 0)
