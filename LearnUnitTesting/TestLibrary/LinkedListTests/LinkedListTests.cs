@@ -2,7 +2,7 @@
 
 namespace TestLibrary.LinkedListTests
 {
-          
+
     public class LinkedListTests
     {
         [Theory]
@@ -111,13 +111,13 @@ namespace TestLibrary.LinkedListTests
         }
 
         [Theory]
-        [InlineData(new int[] { },  0, "")]
-        [InlineData(new int[] { },  1, "")]
-        [InlineData(new[] { 1 },  0, "")]
-        [InlineData(new[] { 1, 2 },  1, "1")]
-        [InlineData(new[] { 3, 1, 2 },  1, "32")]
-        [InlineData(new[] { 1, 2, 3, 4, 5, 7, 8 },  5, "123458")]
-        [InlineData(new[] { 1, 2, 3, 4, 5, 7, 8 },  22, "1234578")]
+        [InlineData(new int[] { }, 0, "")]
+        [InlineData(new int[] { }, 1, "")]
+        [InlineData(new[] { 1 }, 0, "")]
+        [InlineData(new[] { 1, 2 }, 1, "1")]
+        [InlineData(new[] { 3, 1, 2 }, 1, "32")]
+        [InlineData(new[] { 1, 2, 3, 4, 5, 7, 8 }, 5, "123458")]
+        [InlineData(new[] { 1, 2, 3, 4, 5, 7, 8 }, 22, "1234578")]
         [InlineData(new[] { 3, 1, 2 }, 2, "31")]
         [InlineData(new[] { 3, 1, 2 }, 0, "12")]
         public void doublyLinkedList_ShouldDeleteAtIndexIfValid(int[] input, int index, string expected)
@@ -314,6 +314,57 @@ namespace TestLibrary.LinkedListTests
             int actual = singlyLinkedList.Count;
             //Assert
             Assert.Equal(expected, actual);
+        }
+
+        [Theory]
+        [InlineData(new int[] { }, new int[] { }, new int[] { })]
+        [InlineData(new int[] { 1 }, new int[] { }, new int[] { 1 })]
+        [InlineData(new int[] { }, new int[] { 1 }, new int[] { 1 })]
+        [InlineData(new int[] { 1 }, new int[] { 2 }, new int[] { 1, 2 })]
+        [InlineData(new int[] { 2 }, new int[] { 1 }, new int[] { 1, 2 })]
+        [InlineData(new int[] { 1, 2 }, new int[] { 1 }, new int[] { 1, 1, 2 })]
+        [InlineData(new int[] { 1, 2 }, new int[] { 2 }, new int[] { 1, 2, 2 })]
+        [InlineData(new int[] { 2, 2 }, new int[] { 1 }, new int[] { 1, 2, 2 })]
+        [InlineData(new int[] { 2, 2 }, new int[] { 1, 1 }, new int[] { 1, 1, 2, 2 })]
+        [InlineData(new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 1, 2, 2, 3, 3, 4, 4, 5, 5 })]
+        [InlineData(new int[] { 1, 5, 9 }, new int[] { 1, 2, 2, 11, 15 }, new int[] { 1, 1, 2, 2, 5, 9, 11, 15 })]
+        public void MergeTwoLists_ShouldMergeTwoListsInAscendingOrder(int[] first, int[] second, int[] merged)
+        {
+            // Arrange
+            SinglyLinkedList list1 = new SinglyLinkedList();
+            SinglyLinkedList list2 = new SinglyLinkedList();
+            SinglyLinkedList mergedList = new SinglyLinkedList();
+
+            //list1
+            for (int i = 0; i < first.Length; i++)
+            {
+                list1.AddAtTail(first[i]);
+            }
+
+            //list2
+            for (int i = 0; i < second.Length; i++)
+            {
+                list2.AddAtTail(second[i]);
+            }
+
+            //mergedList
+            for (int i = 0; i < merged.Length; i++)
+            {
+                mergedList.AddAtTail(merged[i]);
+            }
+            ListNode expected = mergedList.Head;
+
+            // Act
+            ListNode actual = TwoPointerTechnique.MergeTwoLists(list1.Head, list2.Head);
+
+            //Assert 
+
+            while (expected is not null)
+            {
+                Assert.Equal(expected.Value, actual.Value);
+                expected = expected.Next;
+                actual = actual.Next;
+            }
         }
     }
 }

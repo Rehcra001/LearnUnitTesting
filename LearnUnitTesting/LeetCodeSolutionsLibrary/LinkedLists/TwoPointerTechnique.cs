@@ -69,7 +69,7 @@ namespace LeetCodeSolutionsLibrary.LinkedLists
                 }
                 return slow;
             }
-        }        
+        }
 
         public static ListNode GetIntersectionNode(ListNode headA, ListNode headB)
         {
@@ -96,7 +96,7 @@ namespace LeetCodeSolutionsLibrary.LinkedLists
             //reset
             nodeA = headA;
             nodeB = headB;
-            
+
             // Check for longest
             if (countA > countB)
             {
@@ -120,7 +120,7 @@ namespace LeetCodeSolutionsLibrary.LinkedLists
 
             //search for intersection
             while (countA > 0)
-            {                
+            {
                 if (nodeA == nodeB)
                 {
                     return nodeA;
@@ -170,7 +170,7 @@ namespace LeetCodeSolutionsLibrary.LinkedLists
 
             ListNode? last = head;
             ListNode current;
-            
+
             while (last is not null && last.Next is not null)
             {
                 current = last.Next;
@@ -179,7 +179,7 @@ namespace LeetCodeSolutionsLibrary.LinkedLists
                 {
                     current.Next = head;
                     head = current;
-                }                
+                }
             }
             return head;
         }
@@ -191,7 +191,7 @@ namespace LeetCodeSolutionsLibrary.LinkedLists
             {
                 return head;
             }
-            
+
             return head;
         }
 
@@ -288,6 +288,79 @@ namespace LeetCodeSolutionsLibrary.LinkedLists
             }
 
             return (listA.Head!, listB.Head!);
+        }
+
+        public static ListNode MergeTwoLists(ListNode list1, ListNode list2)
+        {
+            if (list1 is null && list2 is null)
+            {
+                return null;
+            }
+            if (list1 is null && list2 is not null)
+            {
+                return list2;
+            }
+            if (list1 is not null && list2 is null)
+            {
+                return list1;
+            }
+
+            //At this point both lists are not null
+            ListNode head;
+            if (list1.Value <= list2.Value)
+            {
+                head = list1;
+                list1 = list1.Next;
+            }
+            else
+            {
+                head = list2;
+                list2 = list2.Next;
+            }
+            ListNode current = head;
+
+            while (list1 is not null || list2 is not null)
+            {
+                if (list1 is not null && list2 is null)
+                {
+                    while (list1 is not null)
+                    {
+                        current.Next = list1;
+                        current = current.Next;
+                        list1 = list1.Next;
+                    }
+                    return head;
+                }
+
+                while (list1 is not null && list1.Value <= list2.Value)
+                {
+                    current.Next = list1;
+                    current = current.Next;
+                    list1 = list1.Next;
+                }
+
+                if (list2 is not null && list1 is null)
+                {
+                    while (list2 is not null)
+                    {
+                        current.Next = list2;
+                        current = current.Next;
+                        list2 = list2.Next;
+                    }
+                    return head;
+                } 
+
+                while (list2 is not null && list2.Value < list1.Value)
+                {
+                    current.Next = list2;
+                    current = current.Next;
+                    list2 = list2.Next;
+                }
+
+                
+            }            
+
+            return head;
         }
     }
 }
