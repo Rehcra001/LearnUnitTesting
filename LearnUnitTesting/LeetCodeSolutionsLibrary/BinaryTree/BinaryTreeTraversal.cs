@@ -40,5 +40,28 @@ namespace LeetCodeSolutionsLibrary.BinaryTree
 
             return preOrder;
         }
+        public static IList<int> PreorderTraversalRecurse(TreeNode root)
+        {
+            List<int> preorder = new List<int>();
+            if (root is null)
+            {
+                return preorder;
+            }
+
+            PreorderRecursion(root, preorder);
+            return preorder;
+        }
+
+        public static void PreorderRecursion( TreeNode root, List<int> preorder)
+        {
+            if (root is null)
+            {
+                return;
+            }
+
+            preorder.Add(root.val);            
+            PreorderRecursion( root.left, preorder);
+            PreorderRecursion( root.right, preorder);
+        }
     }
 }
