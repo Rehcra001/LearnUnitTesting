@@ -93,5 +93,56 @@ namespace TestLibrary.BinaryTreeTests
             // Assert
             Assert.Equal(expected, actual);
         }
+
+        [Fact]
+        public void InorderTraversalIterative_ShouldAddTheInOrderToAList()
+        {
+            // Arrange
+            TreeNode root = new TreeNode(1);
+            root.left = new TreeNode(2);
+            root.left.left = new TreeNode(3);
+            root.left.right = new TreeNode(4);
+            root.left.right.right = new TreeNode(5);
+
+            IList<int> expected = new List<int> { 3, 2, 4, 5, 1 };
+            // Act
+            IList<int> actual = BinaryTreeTraversal.InorderTraversalIterative(root);
+            // Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void InorderTraversalIterative_ShouldAddTheInOrderToAList2()
+        {
+            // Arrange
+            TreeNode root = new TreeNode(1);
+            root.left = new TreeNode(2);
+            root.left.left = new TreeNode(3);
+            root.left.right = new TreeNode(4);
+            root.left.right.right = new TreeNode(5);
+
+            IList<int> expected = new List<int> { 3, 2, 4, 5, 1 };
+            // Act
+            IList<int> actual = BinaryTreeTraversal.InorderTraversalIterative2(root);
+            // Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void InorderTraversalRecursion_ShouldAddTheInOrderToAList()
+        {
+            // Arrange
+            TreeNode root = new TreeNode(1);
+            root.left = new TreeNode(2);
+            root.left.left = new TreeNode(3);
+            root.left.right = new TreeNode(4);
+            root.left.right.right = new TreeNode(5);
+
+            IList<int> expected = new List<int> { 3, 2, 4, 5, 1 };
+            // Act
+            IList<int> actual = BinaryTreeTraversal.InorderTraversalRecursion(root);
+            // Assert
+            Assert.Equal(expected, actual);
+        }
     }
 }
